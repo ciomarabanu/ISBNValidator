@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 public class CheckValidISBN {
 
     @Test
-    public void checkValidISBN() {
+    public void checkValid10DigitISBN() {
         ValidateISBN validator = new ValidateISBN();
         boolean result = validator.checkISBN("0140449116");
         assertTrue("first value", result);
@@ -16,7 +16,7 @@ public class CheckValidISBN {
     }
 
     @Test (expected = NumberFormatException.class)
-    public void isbnNumEndingInXAreValid() {
+    public void isbn10DigitNumEndingInXAreValid() {
         ValidateISBN validator = new ValidateISBN();
         validator.checkISBN("012000b30X");
         boolean result = validator.checkISBN("012000030X");
@@ -40,7 +40,7 @@ public class CheckValidISBN {
     }
 
     @Test (expected = NumberFormatException.class)
-    public void onlyDigitsAllowed() {
+    public void nonNumericIsNotAllowed() {
         ValidateISBN validator = new ValidateISBN();
         validator.checkISBN("helloworld");
     }
@@ -50,6 +50,13 @@ public class CheckValidISBN {
         ValidateISBN validator = new ValidateISBN();
         boolean result = validator.checkISBN("9780120000302");
         assertTrue(result);
+    }
+
+    @Test
+    public void checkInvalid13DigitISBN() {
+        ValidateISBN validator = new ValidateISBN();
+        boolean result = validator.checkISBN("9780120000303");
+        assertFalse(result);
     }
 
 
