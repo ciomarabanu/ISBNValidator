@@ -12,15 +12,16 @@ public class CheckValidISBN {
         assertTrue("first value", result);
         result = validator.checkISBN("1250823943");
         assertTrue("second value", result);
-        result = validator.checkISBN("012000030X");
-        assertTrue("third value", result);
+
     }
 
-    @Test
+    @Test (expected = NumberFormatException.class)
     public void isbnNumEndingInXAreValid() {
         ValidateISBN validator = new ValidateISBN();
+        validator.checkISBN("012000b30X");
         boolean result = validator.checkISBN("012000030X");
         assertTrue(result);
+
     }
 
     @Test
@@ -28,20 +29,27 @@ public class CheckValidISBN {
         ValidateISBN validator = new ValidateISBN();
         boolean result = validator.checkISBN("0140449117");
         assertFalse(result);
-        result = validator.checkISBN("012000030X");
-        assertFalse(result);
+
     }
 
     @Test (expected = NumberFormatException.class)
     public void nineDigitsISBNNotAllowed() {
         ValidateISBN validator = new ValidateISBN();
         validator.checkISBN("123456789");
+
     }
 
     @Test (expected = NumberFormatException.class)
     public void onlyDigitsAllowed() {
         ValidateISBN validator = new ValidateISBN();
         validator.checkISBN("helloworld");
+    }
+
+    @Test
+    public void checkAValid13DigitISBN() {
+        ValidateISBN validator = new ValidateISBN();
+        boolean result = validator.checkISBN("9780120000302");
+        assertTrue(result);
     }
 
 
